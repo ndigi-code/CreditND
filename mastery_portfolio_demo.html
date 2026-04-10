@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastery Portfolio — Mastery School of Hawken</title>
+<style>
+/* ── Reset & Tokens ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sans: 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Courier New', monospace;
+
+  /* neutrals */
+  --ink:    #1a1a18;
+  --ink2:   #44433f;
+  --ink3:   #7a7975;
+  --ink4:   #b0afa9;
+  --paper:  #ffffff;
+  --paper2: #f4f3ef;
+  --paper3: #edecea;
+  --rule:   rgba(0,0,0,.10);
+  --rule2:  rgba(0,0,0,.18);
+
+  /* Hawken brand */
+  --hawk:   #1a3a5c;   /* navy */
+  --hawk2:  #2a5a8c;
+  --hawk3:  #d4a017;   /* gold */
+  --hawk4:  #f0c840;
+
+  /* credit domain colors — matches MTC ring spectrum */
+  --c1: #5bb8c4;  /* Citizenship */
+  --c2: #4fa66a;  /* Collaboration */
+  --c3: #8bc34a;  /* Communication */
+  --c4: #f9c74f;  /* Creative Problem-Solving */
+  --c5: #f4845f;  /* Critical Thinking */
+  --c6: #9b59b6;  /* Cultivation of Self */
+
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 2px 12px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--paper2);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── Page Routing ───────────────────────────────────────────── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: flex; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 1 — LOGIN
+═══════════════════════════════════════════════════════════════ */
+#page-login {
+  align-items: center;
+  justify-content: center;
+  background: var(--hawk);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-bg-ring {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  border: 60px solid rgba(255,255,255,.04);
+  right: -200px; top: -200px;
+  pointer-events: none;
+}
+
+.login-bg-ring2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,.03);
+  left: -120px; bottom: -100px;
+  pointer-events: none;
+}
+
+.login-card {
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 48px 48px 40px;
+  width: 420px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.login-logo-ring {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--hawk);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ring-mini {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 4px solid var(--hawk3);
+  border-top-color: var(--c1);
+  border-right-color: var(--c3);
+}
+
+.login-school {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hawk);
+  line-height: 1.2;
+  letter-spacing: .01em;
+}
+
+.login-school span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink3);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.login-card h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.login-card p {
+  font-size: 13px;
+  color: var(--ink3);
+  margin-bottom: 28px;
+}
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--rule2);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: var(--paper2);
+  color: var(--ink);
+  outline: none;
+  transition: border .15s, box-shadow .15s;
+}
+
+.field input:focus {
+  border-color: var(--hawk2);
+  box-shadow: 0 0 0 3px rgba(42,90,140,.12);
+  background: var(--paper);
+}
+
+.login-hint {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background: var(--paper2);
+  border-radius: 6px;
+  border-left: 3px solid var(--hawk3);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 13px;
+  background: var(--hawk);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  letter-spacing: .01em;
+}
+
+.btn-login:hover { background: var(--hawk2); }
+.btn-login:active { transform: scale(.99); }
+
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 2 — DASHBOARD (public transcript view)
+═══════════════════════════════════════════════════════════════ */
+#page-dashboard {
+  flex-direction: column;
+  background: var(--paper2);
+}
+
+/* ── Topnav ── */
+.topnav {
+  background: var(--hawk);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.topnav-brand .ring-mini { border-color: var(--hawk3); border-top-color: var(--c1); }
+
+.topnav-school {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .01em;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topnav-student {
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+}
+
+.btn-nav {
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  transition: background .15s;
+}
+
+.btn-nav:hover { background: rgba(255,255,255,.22); }
+
+.btn-nav-primary {
+  background: var(--hawk3);
+  color: var(--hawk);
+  border-color: var(--hawk3);
+  font-weight: 600;
+}
+
+.btn-nav-primary:hover { background: var(--hawk4); border-color: var(--hawk4); }
+
+/* ── Dashboard body ── */
+.dash-body {
+  display: grid;
+  grid-template-columns: 300px 1fr 280px;
+  gap: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left: learner profile */
+.dash-profile {
+  background: var(--hawk);
+  color: #fff;
+  padding: 32px 24px;
+  overflow-y: auto;
+}
+
+.profile-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  border: 3px solid rgba(255,255,255,.2);
+}
+
+.profile-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.profile-bio {
+  font-size: 13px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.profile-meta {
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-meta a { color: rgba(255,255,255,.75); }
+
+.profile-divider {
+  height: 1px;
+  background: rgba(255,255,255,.12);
+  margin: 20px 0;
+}
+
+.profile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-nav-item {
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.profile-nav-item:hover { background: rgba(255,255,255,.1); color: #fff; }
+.profile-nav-item.active { background: rgba(255,255,255,.16); color: #fff; }
+
+.profile-nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  padding: 0 12px;
+  margin: 12px 0 4px;
+}
+
+/* ── Center: credit profile ── */
+.dash-center {
+  padding: 28px 32px;
+  overflow-y: auto;
+}
+
+.dash-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+
+.dash-section-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.dash-section-sub {
+  font-size: 13px;
+  color: var(--ink3);
+  margin-bottom: 24px;
+}
+
+/* Ring chart */
+.ring-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 28px;
+}
+
+.ring-wrap { position: relative; width: 220px; height: 220px; flex-shrink: 0; }
+
+.ring-center-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.ring-center-text .big { font-size: 38px; font-weight: 700; color: var(--ink); line-height: 1; }
+.ring-center-text .small { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+.ring-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 28px;
+}
+
+.ring-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink2);
+}
+
+.ring-legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.ring-legend-count {
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Credit domain cards */
+.credit-domains {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.domain-card {
+  background: var(--paper);
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s;
+}
+
+.domain-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.domain-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.domain-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.domain-count {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.domain-credits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.domain-credit-item {
+  font-size: 12px;
+  color: var(--ink3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.credit-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.credit-star {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--hawk3);
+}
+
+/* ── Right: Evidence ── */
+.dash-evidence {
+  background: var(--paper);
+  border-left: 1px solid var(--rule);
+  padding: 28px 20px;
+  overflow-y: auto;
+}
+
+.evidence-section {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.evidence-section:first-child { margin-top: 0; }
+
+.evidence-card {
+  background: var(--paper2);
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: box-shadow .15s;
+}
+
+.evidence-card:hover { box-shadow: var(--shadow); }
+
+.evidence-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.evidence-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.evidence-card-desc {
+  font-size: 12px;
+  color: var(--ink3);
+  line-height: 1.5;
+}
+
+.evidence-thumb {
+  width: 100%;
+  height: 60px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+
+/* Progress banner */
+.progress-banner {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress-stat {
+  text-align: center;
+  flex: 1;
+}
+
+.progress-stat .num { font-size: 22px; font-weight: 700; color: var(--ink); }
+.progress-stat .lbl { font-size: 11px; color: var(--ink3); }
+
+.progress-divider {
+  width: 1px; height: 36px;
+  background: var(--rule);
+}
+
+.btn-work {
+  padding: 10px 18px;
+  background: var(--hawk);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s;
+}
+
+.btn-work:hover { background: var(--hawk2); }
+
+/* publish badge */
+.publish-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  margin-left: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 3 — PORTFOLIO WORKSPACE
+═══════════════════════════════════════════════════════════════ */
+#page-workspace {
+  flex-direction: column;
+  background: var(--paper3);
+}
+
+.ws-topbar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 28px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.ws-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink3);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background .12s;
+  border: none;
+  background: none;
+}
+
+.ws-back:hover { background: var(--paper2); color: var(--ink); }
+
+.ws-topbar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+}
+
+.ws-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Workspace layout */
+.ws-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.ws-sidebar {
+  width: 232px;
+  min-width: 232px;
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.ws-sidebar-header {
+  padding: 16px 16px 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ws-sidebar-student {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ws-sidebar-grade {
+  font-size: 11px;
+  color: var(--ink3);
+}
+
+.ws-nav-section { padding: 10px 0 4px; }
+
+.ws-nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  padding: 0 14px;
+  margin-bottom: 3px;
+}
+
+.ws-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--ink3);
+  border-left: 2px solid transparent;
+  transition: all .12s;
+  user-select: none;
+}
+
+.ws-nav-item:hover { background: var(--paper2); color: var(--ink); }
+.ws-nav-item.active { background: #e8f0f8; color: #1a3a5c; border-left-color: var(--hawk2); font-weight: 600; }
+
+.ws-nav-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-e  { background: #4caf50; }
+.dot-ip { background: #ff9800; }
+.dot-ns { background: var(--rule2); }
+
+/* Workspace main */
+.ws-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.ws-credit-bar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ws-credit-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+.ws-credit-sub   { font-size: 13px; color: var(--ink3); margin-top: 1px; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.badge-mindset { background: #e0f7f4; color: #00796b; border-color: #80cbc4; }
+.badge-habit   { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+.badge-skill   { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+.badge-earned  { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+.badge-progress{ background: #fff8e1; color: #f57f17; border-color: #ffe082; }
+.badge-ready   { background: #f3e5f5; color: #6a1b9a; border-color: #ce93d8; }
+
+.ws-content { flex: 1; overflow-y: auto; padding: 20px 24px; }
+
+/* Cards */
+.ws-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.ws-card-head {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ws-card-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.ws-card-meta  { font-size: 11px; color: var(--ink3); }
+.ws-card-body  { padding: 16px 18px; }
+
+.desc-simple { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.desc-detail { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+
+/* Indicators */
+.indicator-list { display: flex; flex-direction: column; gap: 6px; }
+
+.indicator-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  user-select: none;
+  transition: background .1s;
+}
+
+.indicator-row:hover { background: var(--paper2); }
+
+.ind-check {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule2);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+  transition: all .15s;
+}
+
+.ind-check.on { background: #4caf50; border-color: #4caf50; }
+.ind-check.on::after { content: '✓'; color: #fff; font-size: 10px; font-weight: 800; }
+
+.ind-text { font-size: 13px; color: var(--ink2); line-height: 1.45; }
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed var(--rule2);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+  background: var(--paper2);
+}
+
+.upload-zone:hover { border-color: var(--hawk2); background: #e8f0f8; }
+.upload-icon { font-size: 28px; margin-bottom: 6px; }
+.upload-lbl  { font-size: 13px; font-weight: 600; color: var(--ink); }
+.upload-sub  { font-size: 12px; color: var(--ink3); margin-top: 3px; }
+
+.artifact-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+
+.artifact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--paper2);
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+
+.artifact-icon {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: #e8f0f8;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.artifact-meta { flex: 1; min-width: 0; }
+.artifact-name { font-size: 13px; font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.artifact-date { font-size: 11px; color: var(--ink3); }
+
+.artifact-pill {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e0f7f4;
+  color: #00796b;
+  white-space: nowrap;
+}
+
+/* Reflection */
+.reflection-box {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper2);
+  border: 1px solid var(--rule2);
+  border-radius: 8px;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border .15s, background .15s;
+}
+
+.reflection-box:focus { border-color: var(--hawk2); background: var(--paper); }
+
+/* AI panel */
+.ai-panel {
+  background: #f0faf0;
+  border: 1px solid #b2dfdb;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  display: none;
+}
+
+.ai-panel.open { display: block; }
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.ai-pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4caf50;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+
+.ai-text { font-size: 13px; color: #1b5e20; line-height: 1.6; margin-bottom: 10px; }
+
+.ai-suggestions { display: flex; flex-direction: column; gap: 5px; }
+
+.ai-tip {
+  font-size: 12px;
+  color: #2e7d32;
+  padding: 4px 0 4px 12px;
+  border-left: 2px solid #81c784;
+  line-height: 1.5;
+}
+
+.strength-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.strength-lbl { font-size: 11px; color: #2e7d32; white-space: nowrap; }
+.strength-track { flex: 1; height: 6px; background: #c8e6c9; border-radius: 3px; overflow: hidden; }
+.strength-fill  { height: 100%; background: #43a047; border-radius: 3px; transition: width .7s ease; }
+
+/* Action bar */
+.ws-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 6px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--rule2);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  transition: background .12s;
+}
+
+.btn:hover { background: var(--paper2); }
+
+.btn-green { background: #388e3c; color: #fff; border-color: #388e3c; }
+.btn-green:hover { background: #2e7d32; }
+
+.btn-publish {
+  background: var(--hawk);
+  color: #fff;
+  border-color: var(--hawk);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.btn-publish:hover { background: var(--hawk2); }
+.btn-publish.locked { opacity: .38; cursor: not-allowed; }
+
+.publish-note { font-size: 12px; color: var(--ink3); margin-left: auto; font-style: italic; }
+
+/* Stats bar in ws topbar */
+.stats-strip {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 24px;
+  flex-shrink: 0;
+}
+
+.strip-stat { text-align: center; }
+.strip-stat .n { font-size: 18px; font-weight: 700; color: var(--ink); }
+.strip-stat .l { font-size: 10px; color: var(--ink3); }
+.strip-div { width: 1px; height: 28px; background: var(--rule); }
+
+/* ── Transitions ── */
+.fade { animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════════════════════ PAGE 1: LOGIN ═══ -->
+<div id="page-login" class="page active">
+  <div class="login-bg-ring"></div>
+  <div class="login-bg-ring2"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-ring"><div class="ring-mini"></div></div>
+      <div class="login-school">
+        Mastery School of Hawken
+        <span>Student Portfolio System</span>
+      </div>
+    </div>
+    <h1>Welcome back</h1>
+    <p>Sign in to view your portfolio and mastery transcript.</p>
+    <div class="field">
+      <label>Student ID / Email</label>
+      <input type="text" id="login-email" value="alex.rivera@hawken.edu" placeholder="your@hawken.edu">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="login-pass" value="••••••••" placeholder="••••••••">
+    </div>
+    <div class="login-hint">
+      <strong>Demo:</strong> Any credentials work — click Sign In to explore the system.
+    </div>
+    <button class="btn-login" onclick="goTo('page-dashboard')">Sign In →</button>
+    <div class="login-footer">Mastery School of Hawken · Mastery Transcript Consortium® member</div>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════ PAGE 2: DASHBOARD ═══ -->
+<div id="page-dashboard" class="page">
+  <nav class="topnav">
+    <div class="topnav-brand">
+      <div class="ring-mini"></div>
+      <span class="topnav-school">Mastery School of Hawken</span>
+    </div>
+    <div class="topnav-right">
+      <span class="topnav-student">Alex Rivera · Grade 10</span>
+      <button class="btn-nav btn-nav-primary" onclick="goTo('page-workspace')">📂 My Portfolio Workspace</button>
+      <button class="btn-nav" onclick="goTo('page-login')">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+
+    <!-- Left: Learner Profile -->
+    <div class="dash-profile">
+      <div class="profile-avatar">AR</div>
+      <div class="profile-name">Alex Rivera</div>
+      <div class="profile-bio">A maker and creative problem-solver passionate about design, sustainability, and community-centered engineering. Aspiring to bridge art and technology.</div>
+      <div class="profile-meta">🏫 Mastery School of Hawken</div>
+      <div class="profile-meta">📍 Cleveland, Ohio</div>
+      <div class="profile-meta">🎓 Class of 2028</div>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile-nav-label">My Transcript</div>
+      <div class="profile-nav">
+        <div class="profile-nav-item active">Credit Profile</div>
+        <div class="profile-nav-item">Courses</div>
+        <div class="profile-nav-item">Activities &amp; Badges</div>
+      </div>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile-nav-label">Transcript Status</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;padding:0 4px;">
+        <div>🟢 1 credit earned &amp; published</div>
+        <div>🟡 4 credits in progress</div>
+        <div>⚪ 8 credits not yet started</div>
+        <div style="margin-top:8px;">Last updated: Apr 10, 2026</div>
+      </div>
+    </div>
+
+    <!-- Center: Credit Profile -->
+    <div class="dash-center fade">
+      <div class="dash-section-label">Mastery Transcript</div>
+      <div class="dash-section-title">Credit Profile <span class="publish-badge">Live Preview</span></div>
+      <div class="dash-section-sub">Credits reflect what you have demonstrated mastery of. Published credits appear on your official transcript.</div>
+
+      <!-- Stats strip -->
+      <div class="progress-banner">
+        <div class="progress-stat"><div class="num">1</div><div class="lbl">Earned</div></div>
+        <div class="progress-divider"></div>
+        <div class="progress-stat"><div class="num">4</div><div class="lbl">In Progress</div></div>
+        <div class="progress-divider"></div>
+        <div class="progress-stat"><div class="num">13</div><div class="lbl">Total Credits</div></div>
+        <div class="progress-divider"></div>
+        <div class="progress-stat"><div class="num">42%</div><div class="lbl">Avg Strength</div></div>
+        <button class="btn-work" onclick="goTo('page-workspace')">Go to Workspace →</button>
+      </div>
+
+      <!-- Ring chart (SVG) -->
+      <div class="ring-container">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 220 220" width="220" height="220">
+            <!-- 6 domain rings — each a partial arc stroke -->
+            <!-- Citizenship -->
+            <circle cx="110" cy="110" r="95" fill="none" stroke="#5bb8c4" stroke-width="9"
+              stroke-dasharray="100 498" stroke-dashoffset="-15" stroke-linecap="round" opacity=".9"/>
+            <!-- Collaboration -->
+            <circle cx="110" cy="110" r="83" fill="none" stroke="#4fa66a" stroke-width="9"
+              stroke-dasharray="90 521" stroke-dashoffset="-15" stroke-linecap="round" opacity=".85"/>
+            <!-- Communication -->
+            <circle cx="110" cy="110" r="71" fill="none" stroke="#8bc34a" stroke-width="9"
+              stroke-dasharray="120 446" stroke-dashoffset="-15" stroke-linecap="round" opacity=".9"/>
+            <!-- Creative PS -->
+            <circle cx="110" cy="110" r="59" fill="none" stroke="#f9c74f" stroke-width="9"
+              stroke-dasharray="60 370" stroke-dashoffset="-15" stroke-linecap="round" opacity=".9"/>
+            <!-- Critical Thinking -->
+            <circle cx="110" cy="110" r="47" fill="none" stroke="#f4845f" stroke-width="9"
+              stroke-dasharray="50 295" stroke-dashoffset="-15" stroke-linecap="round" opacity=".85"/>
+            <!-- Cultivation of Self -->
+            <circle cx="110" cy="110" r="35" fill="none" stroke="#9b59b6" stroke-width="9"
+              stroke-dasharray="80 219" stroke-dashoffset="-15" stroke-linecap="round" opacity=".85"/>
+            <!-- background rings -->
+            <circle cx="110" cy="110" r="95" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="498 0" opacity=".25"/>
+            <circle cx="110" cy="110" r="83" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="521 0" opacity=".2"/>
+            <circle cx="110" cy="110" r="71" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="446 0" opacity=".2"/>
+            <circle cx="110" cy="110" r="59" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="370 0" opacity=".2"/>
+            <circle cx="110" cy="110" r="47" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="295 0" opacity=".2"/>
+            <circle cx="110" cy="110" r="35" fill="none" stroke="#e0e0e0" stroke-width="9"
+              stroke-dasharray="219 0" opacity=".2"/>
+          </svg>
+          <div class="ring-center-text">
+            <div class="big">1</div>
+            <div class="small">of 13<br>earned</div>
+          </div>
+        </div>
+        <div class="ring-legend">
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c1)"></div>
+            Citizenship
+            <span class="ring-legend-count" style="color:var(--c1)">0/2</span>
+          </div>
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c2)"></div>
+            Collaboration
+            <span class="ring-legend-count" style="color:var(--c2)">0/1</span>
+          </div>
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c3)"></div>
+            Communication
+            <span class="ring-legend-count" style="color:var(--c3)">1/4</span>
+          </div>
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c4)"></div>
+            Creative Problem-Solving
+            <span class="ring-legend-count" style="color:var(--c4)">0/2</span>
+          </div>
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c5)"></div>
+            Critical Thinking
+            <span class="ring-legend-count" style="color:var(--c5)">0/2</span>
+          </div>
+          <div class="ring-legend-item">
+            <div class="ring-legend-dot" style="background:var(--c6)"></div>
+            Cultivation of Self
+            <span class="ring-legend-count" style="color:var(--c6)">0/3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain cards -->
+      <div class="credit-domains">
+        <div class="domain-card" onclick="goTo('page-workspace')" style="border-top:3px solid var(--c1)">
+          <div class="domain-card-header">
+            <div class="domain-card-name">Citizenship</div>
+            <div class="domain-count" style="color:var(--c1)">0</div>
+          </div>
+          <div class="domain-credits-list">
+            <div class="domain-credit-item"><div class="credit-dot" style="background:var(--dot-ip,#ff9800)"></div>1.1 Intercultural Competence</div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>1.2 Civics &amp; Engagement</div>
+          </div>
+        </div>
+        <div class="domain-card" onclick="goTo('page-workspace')" style="border-top:3px solid var(--c3)">
+          <div class="domain-card-header">
+            <div class="domain-card-name">Communication</div>
+            <div class="domain-count" style="color:var(--c3)">1</div>
+          </div>
+          <div class="domain-credits-list">
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#4caf50"></div>3.1 Written Communication <span class="credit-star">★</span></div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>3.2 Spoken &amp; Visual</div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ff9800"></div>3.4 Artistic Expression</div>
+          </div>
+        </div>
+        <div class="domain-card" onclick="goTo('page-workspace')" style="border-top:3px solid var(--c5)">
+          <div class="domain-card-header">
+            <div class="domain-card-name">Critical Thinking</div>
+            <div class="domain-count" style="color:var(--c5)">0</div>
+          </div>
+          <div class="domain-credits-list">
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>5.1 Scientific Experimentation</div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>5.3 Quantitative Reasoning</div>
+          </div>
+        </div>
+        <div class="domain-card" onclick="goTo('page-workspace')" style="border-top:3px solid var(--c6)">
+          <div class="domain-card-header">
+            <div class="domain-card-name">Cultivation of Self</div>
+            <div class="domain-count" style="color:var(--c6)">0</div>
+          </div>
+          <div class="domain-credits-list">
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ff9800"></div>6.1 Self-Directed Learning</div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>6.2 Understanding of Self</div>
+            <div class="domain-credit-item"><div class="credit-dot" style="background:#ddd"></div>6.3 Strategies for Wellness</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Evidence panel -->
+    <div class="dash-evidence">
+      <div style="font-size:22px;font-weight:700;color:var(--ink);margin-bottom:18px;">Evidence</div>
+
+      <div class="evidence-section">Featured</div>
+
+      <div class="evidence-card">
+        <div class="evidence-tag" style="color:var(--c3)">Communication</div>
+        <div class="evidence-thumb" style="background:#e8f5e9">📝</div>
+        <div class="evidence-card-title">Personal Narrative — "Where I Come From"</div>
+        <div class="evidence-card-desc">Multi-draft essay exploring identity, family, and place. Demonstrates Written Communication.</div>
+      </div>
+
+      <div class="evidence-card">
+        <div class="evidence-tag" style="color:var(--c6)">Cultivation of Self</div>
+        <div class="evidence-thumb" style="background:#f3e5f5">🎯</div>
+        <div class="evidence-card-title">Learning Goals Portfolio — Semester 1</div>
+        <div class="evidence-card-desc">Goal-setting artifacts with teacher feedback and self-assessment tracking.</div>
+      </div>
+
+      <div class="evidence-section">Citizenship</div>
+
+      <div class="evidence-card">
+        <div class="evidence-tag" style="color:var(--c1)">Intercultural</div>
+        <div class="evidence-card-title">Interview with Exchange Student</div>
+        <div class="evidence-card-desc">Audio recording + reflection on cross-cultural conversation.</div>
+      </div>
+
+      <div class="evidence-section">In Progress</div>
+
+      <div class="evidence-card" onclick="goTo('page-workspace')">
+        <div class="evidence-tag" style="color:#ff9800">🟡 Needs Reflection</div>
+        <div class="evidence-card-title">Identity Web — Value Mapping</div>
+        <div class="evidence-card-desc">Upload complete. Reflection and indicators needed before publishing.</div>
+      </div>
+
+      <div style="margin-top:16px;text-align:center;">
+        <button class="btn-work" onclick="goTo('page-workspace')" style="width:100%">+ Add Evidence →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════ PAGE 3: WORKSPACE ═══ -->
+<div id="page-workspace" class="page">
+  <div class="ws-topbar">
+    <button class="ws-back" onclick="goTo('page-dashboard')">← My Transcript</button>
+    <div class="ws-topbar-title">Portfolio Workspace</div>
+    <div class="ws-topbar-right">
+      <span style="font-size:12px;color:var(--ink3);">Alex Rivera · Grade 10</span>
+      <button class="btn btn-publish" onclick="goTo('page-dashboard')">↗ View My Transcript</button>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="stats-strip">
+    <div class="strip-stat"><div class="n">1</div><div class="l">Earned</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-stat"><div class="n">4</div><div class="l">In Progress</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-stat"><div class="n">8</div><div class="l">Not Started</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-stat"><div class="n">13</div><div class="l">Total</div></div>
+    <div style="margin-left:auto;font-size:12px;color:var(--ink3);font-style:italic;">
+      Publish when ready → credit appears on your mastery transcript
+    </div>
+  </div>
+
+  <div class="ws-body">
+
+    <!-- Sidebar -->
+    <div class="ws-sidebar">
+      <div class="ws-sidebar-header">
+        <div class="ws-sidebar-student">Alex Rivera</div>
+        <div class="ws-sidebar-grade">Grade 10 · 2025–26</div>
+      </div>
+
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Citizenship</div>
+        <div class="ws-nav-item active" onclick="loadCredit('1.1',this)">
+          <span class="ws-nav-dot dot-ip"></span>1.1 Intercultural Competence
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('1.2',this)">
+          <span class="ws-nav-dot dot-ns"></span>1.2 Civics &amp; Engagement
+        </div>
+      </div>
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Collaboration</div>
+        <div class="ws-nav-item" onclick="loadCredit('2.1',this)">
+          <span class="ws-nav-dot dot-ns"></span>2.1 Engaged Teamwork
+        </div>
+      </div>
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Communication</div>
+        <div class="ws-nav-item" onclick="loadCredit('3.1',this)">
+          <span class="ws-nav-dot dot-e"></span>3.1 Written Communication
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('3.2',this)">
+          <span class="ws-nav-dot dot-ns"></span>3.2 Spoken &amp; Visual
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('3.4',this)">
+          <span class="ws-nav-dot dot-ip"></span>3.4 Artistic Expression
+        </div>
+      </div>
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Creative Problem-Solving</div>
+        <div class="ws-nav-item" onclick="loadCredit('4.1',this)">
+          <span class="ws-nav-dot dot-ns"></span>4.1 Methods of Research
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('4.2',this)">
+          <span class="ws-nav-dot dot-ns"></span>4.2 Problem-Solving &amp; Design
+        </div>
+      </div>
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Critical Thinking</div>
+        <div class="ws-nav-item" onclick="loadCredit('5.1',this)">
+          <span class="ws-nav-dot dot-ns"></span>5.1 Scientific Experimentation
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('5.3',this)">
+          <span class="ws-nav-dot dot-ns"></span>5.3 Quantitative Reasoning
+        </div>
+      </div>
+      <div class="ws-nav-section">
+        <div class="ws-nav-label">Cultivation of Self</div>
+        <div class="ws-nav-item" onclick="loadCredit('6.1',this)">
+          <span class="ws-nav-dot dot-ip"></span>6.1 Self-Directed Learning
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('6.2',this)">
+          <span class="ws-nav-dot dot-ns"></span>6.2 Understanding of Self
+        </div>
+        <div class="ws-nav-item" onclick="loadCredit('6.3',this)">
+          <span class="ws-nav-dot dot-ns"></span>6.3 Strategies for Wellness
+        </div>
+      </div>
+    </div>
+
+    <!-- Main workspace area -->
+    <div class="ws-main">
+
+      <!-- Credit header bar -->
+      <div class="ws-credit-bar">
+        <div>
+          <div class="ws-credit-title" id="ws-title">1.1 Intercultural Competence</div>
+          <div class="ws-credit-sub" id="ws-sub">I can communicate with people who are different from me.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="ws-type-badge" class="badge badge-mindset">Mindset</span>
+          <span id="ws-status-badge" class="badge badge-progress">In Progress</span>
+        </div>
+      </div>
+
+      <div class="ws-content fade" id="ws-content">
+
+        <!-- Description -->
+        <div class="ws-card">
+          <div class="ws-card-head">
+            <span class="ws-card-title">What does this credit ask of me?</span>
+          </div>
+          <div class="ws-card-body">
+            <div class="desc-simple" id="ws-desc-simple">I can communicate with people who are different from me.</div>
+            <div class="desc-detail" id="ws-desc-detail">I can demonstrate an understanding of my relationship to my own culture and an awareness of others' cultures as well as my own biases in order to communicate with others who are personally and culturally different from me in meaningful and purposeful ways.</div>
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="ws-card">
+          <div class="ws-card-head">
+            <span class="ws-card-title">Indicators — check off what your evidence shows</span>
+            <span class="ws-card-meta" id="ind-count">0 of 4 checked</span>
+          </div>
+          <div class="ws-card-body">
+            <div class="indicator-list" id="ind-list"></div>
+          </div>
+        </div>
+
+        <!-- Upload evidence -->
+        <div class="ws-card">
+          <div class="ws-card-head">
+            <span class="ws-card-title">Upload evidence of your work</span>
+            <span class="ws-card-meta" id="artifact-count-label">3 items</span>
+          </div>
+          <div class="ws-card-body">
+            <div class="upload-zone" onclick="fakeUpload()">
+              <div class="upload-icon">+</div>
+              <div class="upload-lbl">Add work to your portfolio</div>
+              <div class="upload-sub">Documents · Images · Audio · Video · Links</div>
+            </div>
+            <div class="artifact-list" id="artifact-list">
+              <div class="artifact-item">
+                <div class="artifact-icon">📄</div>
+                <div class="artifact-meta">
+                  <div class="artifact-name">Cultural Identity Reflection.pdf</div>
+                  <div class="artifact-date">Uploaded Mar 12, 2026</div>
+                </div>
+                <span class="artifact-pill">reflection</span>
+              </div>
+              <div class="artifact-item">
+                <div class="artifact-icon">🎙</div>
+                <div class="artifact-meta">
+                  <div class="artifact-name">Interview with exchange student (audio)</div>
+                  <div class="artifact-date">Uploaded Feb 28, 2026</div>
+                </div>
+                <span class="artifact-pill">conversation</span>
+              </div>
+              <div class="artifact-item">
+                <div class="artifact-icon">🖼</div>
+                <div class="artifact-meta">
+                  <div class="artifact-name">Identity Web — value mapping activity</div>
+                  <div class="artifact-date">Uploaded Jan 18, 2026</div>
+                </div>
+                <span class="artifact-pill">visual artifact</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reflection -->
+        <div class="ws-card">
+          <div class="ws-card-head">
+            <span class="ws-card-title">Your reflection</span>
+            <span class="ws-card-meta">Connects your evidence to the indicators above</span>
+          </div>
+          <div class="ws-card-body">
+            <textarea class="reflection-box" id="reflection-box"
+              placeholder="Explain how your uploaded work demonstrates this credit. What did you learn? How did you grow?&#10;&#10;A strong reflection names specific artifacts and connects them to specific indicators."></textarea>
+            <div style="display:flex;justify-content:flex-end;margin-top:6px;">
+              <span style="font-size:11px;color:var(--ink3);" id="char-count">0 characters</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI panel -->
+        <div class="ai-panel" id="ai-panel">
+          <div class="ai-header">
+            <div class="ai-pulse"></div>
+            AI Portfolio Review — draft feedback
+          </div>
+          <div class="ai-text" id="ai-text"></div>
+          <div class="ai-suggestions" id="ai-suggestions"></div>
+          <div class="strength-bar-wrap">
+            <span class="strength-lbl">Portfolio strength</span>
+            <div class="strength-track"><div class="strength-fill" id="strength-fill" style="width:0%"></div></div>
+            <span class="strength-lbl" id="strength-pct">—</span>
+          </div>
+        </div>
+
+        <!-- Action bar -->
+        <div class="ws-action-bar">
+          <button class="btn btn-green" onclick="runAI()">✦ Get AI Feedback</button>
+          <button class="btn" onclick="saveDraft(this)">Save Draft</button>
+          <button class="btn btn-publish locked" id="publish-btn" onclick="tryPublish()">↑ Publish to Transcript</button>
+          <span class="publish-note" id="publish-note">Check all indicators + add reflection to unlock</span>
+        </div>
+
+      </div><!-- /ws-content -->
+    </div><!-- /ws-main -->
+  </div><!-- /ws-body -->
+</div><!-- /page-workspace -->
+
+<script>
+/* ── Credit data ──────────────────────────────────────────── */
+const CREDITS = {
+  '1.1': {
+    title: '1.1 Intercultural Competence',
+    sub: 'I can communicate with people who are different from me.',
+    detail: "I can demonstrate an understanding of my relationship to my own culture and an awareness of others' cultures as well as my own biases in order to communicate with others who are personally and culturally different from me in meaningful and purposeful ways.",
+    type: 'Mindset', typeBadge: 'badge-mindset',
+    status: 'inprogress', statusBadge: 'badge-progress', statusLabel: 'In Progress',
+    indicators: [
+      'I can demonstrate who I am as an individual in relationship to my culture(s).',
+      "I can demonstrate a knowledge/awareness of others' personal and cultural differences.",
+      'I can actively listen and withhold judgment when confronted with different cultural values.',
+      'I can reflect on my own biases and how they influence my interactions with others.'
+    ]
+  },
+  '1.2': {
+    title: '1.2 Civics & Engagement',
+    sub: 'I can use what I know about history and governmental systems to improve my communities.',
+    detail: 'I can analyze and apply my knowledge of history, governmental systems, and processes to contribute to improving my communities within local, state, and/or national contexts.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can utilize knowledge of US history to contribute to solving problems or making change in my communities.',
+      'I can understand and leverage my knowledge of how power is balanced within government systems.',
+      'I can identify social problems in my community and recognize they are at least partly my own.',
+      'I can engage in political and/or non-political processes that contribute to effecting change.'
+    ]
+  },
+  '2.1': {
+    title: '2.1 Engaged Teamwork',
+    sub: "I contribute meaningfully to my team's work, and I allow others to contribute as well.",
+    detail: 'I use my strengths and take initiative in teamwork and allow others to use their strengths and thrive. I can use processes that build trust within a team through clear communication and inclusive decision-making.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can take and share responsibility with others.',
+      'I can actively listen to others in order to understand their wants and needs.',
+      "I seek to learn and work to utilize each team member's unique skills and strengths.",
+      'I can empathize with and support team members.',
+      'I can give and receive feedback thoughtfully and productively.'
+    ]
+  },
+  '3.1': {
+    title: '3.1 Written Communication',
+    sub: 'I can write effectively and clearly to communicate ideas.',
+    detail: 'I can engage in the writing process and respond to feedback in order to produce coherent written works that effectively and clearly communicate ideas to a chosen audience.',
+    type: 'Skill', typeBadge: 'badge-skill',
+    status: 'earned', statusBadge: 'badge-earned', statusLabel: 'Earned ★',
+    indicators: [
+      'I can produce writing that is detailed, precise, and appropriate given my ideas and audience.',
+      'I can craft and evaluate a claim, and use multiple pieces of evidence to support it.',
+      'I can identify and analyze the central message of a literary text.',
+      'I can produce more than one different mode of writing.'
+    ]
+  },
+  '3.2': {
+    title: '3.2 Spoken & Visual Communication',
+    sub: 'I communicate complex ideas to an audience through speech and/or visual representations.',
+    detail: 'I can create supporting visuals and deliver polished spoken presentations without notes to communicate complex ideas clearly to an audience.',
+    type: 'Skill', typeBadge: 'badge-skill',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can produce detailed and organized spoken presentations to convey complex ideas.',
+      'I can craft a spoken message for a specific audience.',
+      'I can create visuals that support speech and effectively contribute to communication.',
+      'I can deliver a presentation that engages an audience and maintains their attention.'
+    ]
+  },
+  '3.4': {
+    title: '3.4 Artistic Expression',
+    sub: 'I can communicate ideas, thoughts, or feelings through an artistic medium.',
+    detail: 'I can demonstrate the skills and habits required to express ideas, thoughts, or feelings through an artistic medium informed by study, engagement, and practice of the technical skills of that medium.',
+    type: 'Skill', typeBadge: 'badge-skill',
+    status: 'inprogress', statusBadge: 'badge-progress', statusLabel: 'In Progress',
+    indicators: [
+      'I can use the tools for an artistic medium appropriately and effectively.',
+      'I can study the medium and the work of those who have mastered it, and use what I learn in my own work.',
+      'I can plan and complete creations or performances that communicate my idea.',
+      'I can evaluate my work and adjust my process if necessary.'
+    ]
+  },
+  '4.1': {
+    title: '4.1 Methods of Research',
+    sub: 'I can figure out how to find out what I need to know.',
+    detail: 'I can break down a problem into answerable questions; select an appropriate research strategy; evaluate information for reliability, usefulness, and limitations; and give appropriate attribution.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can identify questions I am trying to answer and why each is important.',
+      'I can evaluate different ways of answering my questions and select a method to use.',
+      'I can periodically assess my understanding during research and evaluate information for its usefulness.',
+      'I can evaluate sources and information for reliability and limitations.',
+      'I can give clear attribution to sources in appropriate citation styles.'
+    ]
+  },
+  '4.2': {
+    title: '4.2 Problem-Solving Strategy & Design',
+    sub: 'I can design and implement a strategic process to solve an unsolved problem.',
+    detail: 'I can demonstrate a habit of designing and implementing processes to solve an unsolved problem in different contexts. A successful solution should be feasible, viable, sustainable, and specific to the user.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can design a problem-solving process to meet a deadline.',
+      'I can identify and describe the user for which the solution is designed.',
+      'I can break down a problem into its parts to describe how they are interconnected.',
+      'I can test my solution so it is supported in evidence and not assumption.',
+      'I can reflect on what I learned and how it can help me in future problem-solving.'
+    ]
+  },
+  '5.1': {
+    title: '5.1 Scientific Experimentation & Analysis',
+    sub: 'I can follow a scientific process to collect, analyze, and evaluate data.',
+    detail: 'I can follow a procedure to isolate variables and collect data in order to test a hypothesis or answer a question. I can analyze data using statistical concepts to come to sound scientific conclusions.',
+    type: 'Skill', typeBadge: 'badge-skill',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can propose a hypothesis based on prior knowledge.',
+      'I can isolate variables and collect quantitative data.',
+      'I can use tables, graphs and statistical analysis to draw conclusions about a dataset.',
+      'I can identify limitations in the dataset and suggest next steps.'
+    ]
+  },
+  '5.3': {
+    title: '5.3 Quantitative Reasoning',
+    sub: 'I can describe mathematical patterns and use them to make decisions.',
+    detail: 'I can demonstrate fluency with geometric objects and with linear, exponential, and quadratic functions to describe patterns, measure objects, and solve algebraic equations.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can select appropriate geometric structures and algebraic functions to solve problems.',
+      'I can evaluate my problem-solving process and articulate my reasoning.',
+      'I can use statistical measures to describe patterns in data.'
+    ]
+  },
+  '6.1': {
+    title: '6.1 Self-Directed Learning',
+    sub: 'I am an active participant in designing and implementing my own course of study.',
+    detail: 'I use my self awareness to design learning experiences by identifying specific goals, creating specific plans, monitoring my process, adjusting plans when necessary, and using reflection to fuel action.',
+    type: 'Habit', typeBadge: 'badge-habit',
+    status: 'inprogress', statusBadge: 'badge-progress', statusLabel: 'In Progress',
+    indicators: [
+      'I can outline the goals for my learning experiences.',
+      'I can develop a time management plan to achieve my goals.',
+      'I can evaluate my progress and adjust my plans accordingly.',
+      'I can reflect on a series of learning experiences and make decisions about next steps.',
+      "I can identify, adapt, and apply learning strategies that I've found to be effective for me."
+    ]
+  },
+  '6.2': {
+    title: '6.2 Understanding of Self',
+    sub: 'I am working to understand who I am, what I value, how I learn, and what drives me.',
+    detail: 'I make time to reflect on my experiences, interests, and values. I work to expand my knowledge of adolescent development and intentionally integrate it into my understanding of myself, my values, and my motivators.',
+    type: 'Mindset', typeBadge: 'badge-mindset',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I can reflect on aspects of my social identity such as race, ethnicity, ability, age, religion, gender, and socioeconomic status.',
+      'I can communicate my values and how they are informed by my identity and experience.',
+      'I can identify my own interests, passions, and unique motivators for my learning.',
+      'I can reflect on my own needs and strengths, and seek out appropriate support.'
+    ]
+  },
+  '6.3': {
+    title: '6.3 Strategies for Wellness',
+    sub: 'I can build a healthy mind and body by creating a healthy lifestyle.',
+    detail: 'I am aware of my overall wellbeing and create routines in my life that respond to my unique needs. As my circumstances and wellness needs change, I adjust my strategies accordingly.',
+    type: 'Mindset', typeBadge: 'badge-mindset',
+    status: 'notstarted', statusBadge: 'badge-ready', statusLabel: 'Not Started',
+    indicators: [
+      'I understand the link between a healthy lifestyle and my ability to perform in the world.',
+      'I can create healthy lifestyle goals and develop a path to achieve them.',
+      'I can maintain healthy habits.',
+      'I can evaluate and adjust my wellness path as my human performance needs change.'
+    ]
+  }
+};
+
+/* ── State ── */
+let checked = 0;
+let total = 4;
+
+/* ── Page routing ── */
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* ── Load a credit into the workspace ── */
+function loadCredit(id, el) {
+  // Update sidebar active state
+  document.querySelectorAll('.ws-nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  const c = CREDITS[id];
+  if (!c) return;
+
+  // Header
+  document.getElementById('ws-title').textContent = c.title;
+  document.getElementById('ws-sub').textContent = c.sub;
+
+  const typeBadge = document.getElementById('ws-type-badge');
+  typeBadge.className = 'badge ' + c.typeBadge;
+  typeBadge.textContent = c.type;
+
+  const statusBadge = document.getElementById('ws-status-badge');
+  statusBadge.className = 'badge ' + c.statusBadge;
+  statusBadge.textContent = c.statusLabel;
+
+  // Description
+  document.getElementById('ws-desc-simple').textContent = c.sub;
+  document.getElementById('ws-desc-detail').textContent = c.detail;
+
+  // Indicators
+  const list = document.getElementById('ind-list');
+  list.innerHTML = '';
+  total = c.indicators.length;
+  checked = 0;
+  c.indicators.forEach(ind => {
+    const row = document.createElement('div');
+    row.className = 'indicator-row';
+    row.onclick = function() { toggleInd(this); };
+    row.innerHTML = '<div class="ind-check"></div><div class="ind-text">' + ind + '</div>';
+    list.appendChild(row);
+  });
+  updateIndCount();
+
+  // Reset rest
+  document.getElementById('reflection-box').value = '';
+  document.getElementById('char-count').textContent = '0 characters';
+  document.getElementById('ai-panel').classList.remove('open');
+  updatePublish();
+
+  // Re-fade
+  const content = document.getElementById('ws-content');
+  content.classList.remove('fade');
+  void content.offsetWidth;
+  content.classList.add('fade');
+}
+
+function toggleInd(row) {
+  const chk = row.querySelector('.ind-check');
+  if (chk.classList.contains('on')) { chk.classList.remove('on'); checked--; }
+  else { chk.classList.add('on'); checked++; }
+  updateIndCount();
+  updatePublish();
+}
+
+function updateIndCount() {
+  document.getElementById('ind-count').textContent = checked + ' of ' + total + ' checked';
+}
+
+function updatePublish() {
+  const btn = document.getElementById('publish-btn');
+  const note = document.getElementById('publish-note');
+  const reflection = document.getElementById('reflection-box').value.trim();
+  const allChecked = checked === total;
+  const hasReflection = reflection.length > 40;
+
+  if (allChecked && hasReflection) {
+    btn.classList.remove('locked');
+    note.textContent = '✓ Ready to publish to your mastery transcript';
+    note.style.color = '#2e7d32';
+  } else if (allChecked) {
+    btn.classList.add('locked');
+    note.textContent = 'Add a reflection (50+ characters) to unlock publishing';
+    note.style.color = '';
+  } else {
+    btn.classList.add('locked');
+    note.textContent = checked + '/' + total + ' indicators checked · add reflection to unlock';
+    note.style.color = '';
+  }
+}
+
+function fakeUpload() {
+  alert('In the full build this opens a file / link picker.\nSupported: PDF, Word, images, audio, video, URLs, Google Drive links.');
+}
+
+function saveDraft(btn) {
+  const orig = btn.textContent;
+  btn.textContent = '✓ Saved';
+  btn.style.background = '#e8f5e9';
+  btn.style.color = '#2e7d32';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 2000);
+}
+
+function tryPublish() {
+  const btn = document.getElementById('publish-btn');
+  if (!btn.classList.contains('locked')) {
+    alert('Publishing complete!\n\nIn the full build, this credit and its evidence would now appear on your public-facing Mastery Transcript — viewable by colleges and employers with a secure access code.');
+  }
+}
+
+function runAI() {
+  const panel = document.getElementById('ai-panel');
+  const aiText = document.getElementById('ai-text');
+  const aiSugg = document.getElementById('ai-suggestions');
+  const fill = document.getElementById('strength-fill');
+  const pct = document.getElementById('strength-pct');
+
+  aiText.textContent = 'Reviewing your portfolio…';
+  aiSugg.innerHTML = '';
+  fill.style.width = '0%';
+  pct.textContent = '—';
+  panel.classList.add('open');
+
+  const reflection = document.getElementById('reflection-box').value.trim();
+  const strength = Math.min(28 + checked * 14 + (reflection.length > 100 ? 22 : reflection.length > 40 ? 12 : 0), 96);
+
+  setTimeout(() => {
+    aiText.textContent = checked >= Math.ceil(total * 0.75)
+      ? 'Your portfolio shows solid evidence for this credit. Your uploaded artifacts cover multiple indicators. A strong reflection connecting each artifact to a specific indicator will bring this to publish-ready.'
+      : 'Good start — you have meaningful artifacts uploaded. To strengthen this portfolio, focus on checking more indicators and writing a reflection that explicitly connects your evidence to each one.';
+
+    const tips = checked >= Math.ceil(total * 0.75)
+      ? ['Your reflection should name each indicator and which artifact speaks to it.',
+         'Consider adding one more artifact showing real-world application of this credit.',
+         'Once you reach all indicators + reflection, you can publish to your transcript.']
+      : ['Check indicators that your uploaded work already addresses.',
+         'Add a written or recorded reflection — even a paragraph makes a big difference.',
+         'An identity web, conversation recording, or annotated document are great evidence types for this credit.'];
+
+    aiSugg.innerHTML = tips.map(t => '<div class="ai-tip">' + t + '</div>').join('');
+    fill.style.width = strength + '%';
+    pct.textContent = strength + '%';
+  }, 850);
+}
+
+/* ── Init ── */
+document.getElementById('reflection-box').addEventListener('input', function() {
+  document.getElementById('char-count').textContent = this.value.length + ' characters';
+  updatePublish();
+});
+
+// Load default credit
+loadCredit('1.1', document.querySelector('.ws-nav-item.active'));
+</script>
+</body>
+</html>
